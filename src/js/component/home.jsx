@@ -7,13 +7,16 @@ import rigoImage from "../../img/rigo-baby.jpg";
 //create your first component
 const Home = () => {
 
+	// Creando hooks para después trabajar con ellos y poder modificarlos.
+
 	const [redLightOn, setRedLightOn] = useState(false);
 	const [yellowLightOn, setYellowLightOn] = useState(false);
 	const [greenLightOn, setGreenLightOn] = useState(false);
 	const [lightBlueLightOn, setColorLightBlueOn] = useState(false);
 	const [newColor, setNewColorOn] = useState("none");
 
-	
+
+	// Función click a la luces. Cuando le demos pasara a a true el set. Si alguna de las otras luces está encendida se apagará
 	const redHandleClick = () => {
 		redLightOn === false ? setRedLightOn(true) : setRedLightOn(false);
 		if (yellowLightOn === true || greenLightOn === true || lightBlueLightOn === true) {
@@ -40,11 +43,7 @@ const Home = () => {
 			setColorLightBlueOn(false);
 		}
 	}
-	
-	const buttonHandleClick = () => {
-		setNewColorOn("flex");
-	}
-	
+
 	const lightBlueHandleClick = () => {
 		lightBlueLightOn === false ? setColorLightBlueOn(true) : setColorLightBlueOn(false);
 
@@ -54,6 +53,16 @@ const Home = () => {
 			setGreenLightOn(false);
 		}
 	}
+	
+	// Creado botón para hacer aparecer el extra color.
+	const buttonHandleClick = () => {
+		setNewColorOn("flex");
+	}
+	
+
+	// Llamada a las funciones de click a los colores en onclick.
+	// En style, boxshadow op. ternario si las luces estan apagadas el boxshadow desaparecerá.
+	// en L.70, en el div donde aparecerá el nuevo color, hemos puesto el display y la variable newColor dada anteriormente en los estados. Si newColor es false, el valor de display será "none".
 
 	return (
 		<div className="container traffic-ligths d-flex flex-column justify-content-center bg-dark rounded-4 p-3 mt-5" style={{ width: "10rem" }}>
