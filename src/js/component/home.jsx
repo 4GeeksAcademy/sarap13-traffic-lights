@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
 
 //create your first component
@@ -13,7 +11,7 @@ const Home = () => {
 	const [yellowLightOn, setYellowLightOn] = useState(false);
 	const [greenLightOn, setGreenLightOn] = useState(false);
 	const [lightBlueLightOn, setColorLightBlueOn] = useState(false);
-	const [newColor, setNewColorOn] = useState("none");
+	const [newColor, setNewColorOn] = useState("d-none");
 
 
 	// Función click a la luces. Cuando le demos pasara a a true el set. Si alguna de las otras luces está encendida se apagará
@@ -25,7 +23,7 @@ const Home = () => {
 			setColorLightBlueOn(false);
 		}
 	}
-	
+
 	const yellowHandleClick = () => {
 		yellowLightOn === false ? setYellowLightOn(true) : setYellowLightOn(false);
 		if (redLightOn == true || greenLightOn == true || lightBlueLightOn === true) {
@@ -34,7 +32,7 @@ const Home = () => {
 			setColorLightBlueOn(false);
 		}
 	}
-	
+
 	const greenHandleClick = () => {
 		greenLightOn === false ? setGreenLightOn(true) : setGreenLightOn(false);
 		if (redLightOn == true || yellowLightOn == true || lightBlueLightOn === true) {
@@ -53,24 +51,29 @@ const Home = () => {
 			setGreenLightOn(false);
 		}
 	}
-	
+
 	// Creado botón para hacer aparecer el extra color.
 	const buttonHandleClick = () => {
-		setNewColorOn("flex");
+		setNewColorOn("d-flex");
 	}
-	
+
 
 	// Llamada a las funciones de click a los colores en onclick.
+	// className usado con {``} porque metemos ${el operador ternario} dentro de la clase y no lo hacemos en stilos en linea.
+	// Añadidas clases en index.css (box shadow y medidas determinadas) Para meterlas en className operador ${}
 	// En style, boxshadow op. ternario si las luces estan apagadas el boxshadow desaparecerá.
-	// en L.70, en el div donde aparecerá el nuevo color, hemos puesto el display y la variable newColor dada anteriormente en los estados. Si newColor es false, el valor de display será "none".
+	// en L.72 en el div donde aparecerá el nuevo color, hemos puesto el display como estado del useSte inicial propiedad bootstrap  y la variable newColor dada anteriormente en los estados. Si newColor es false, el valor de display será "d-none".
+	// agregado col-12 para hacerlo responsive.
 
 	return (
-		<div className="container traffic-ligths d-flex flex-column justify-content-center bg-dark rounded-4 p-3 mt-5" style={{ width: "10rem" }}>
-			<div onClick={redHandleClick} className="red-ligth bg-danger mt-2 mx-auto" style={{ borderRadius: "50%", width: "100px", height: "100px", boxShadow: redLightOn ? "0 0 40px #FFFFFF" : "none" }}></div>
-			<div onClick={yellowHandleClick} className="yellow-ligth bg-warning mt-2 mx-auto" style={{ borderRadius: "50%", width: "100px", height: "100px", boxShadow: yellowLightOn ? "0 0 40px #FFFFFF" : "none" }}></div>
-			<div onClick={greenHandleClick} className="green-light bg-success mt-2 mx-auto" style={{ borderRadius: "50%", width: "100px", height: "100px", boxShadow: greenLightOn ? "0 0 40px #FFFFFF" : "none" }}></div>
-			<div onClick={lightBlueHandleClick} className="bg-info mt-3 mb-3 mx-auto" style ={{display: newColor, borderRadius:"50%", width:"100px",height: "100px", boxShadow: lightBlueLightOn ? "0 0 40px #FFFFFF" : "none"}}></div>
-			<button onClick={buttonHandleClick} className="bg-secondary rounded-4 text-light mt-2 p-3 mx-auto">Extra color</button>
+		<div className="container traffic-ligths d-flex flex-column justify-content-center bg-dark rounded-4 p-3 my-5 px-2">
+			<div className="row">
+				<div onClick={redHandleClick} className={`col-12 red-ligth bg-danger mt-2 mx-auto rounded-circle ${redLightOn ? "ligthOn" : "none"}`}></div>
+				<div onClick={yellowHandleClick} className={`col-12 yellow-ligth bg-warning mt-2 mx-auto rounded-circle ${yellowLightOn ? "ligthOn" : "none"}`}></div>
+				<div onClick={greenHandleClick} className={`col-12 green-light bg-success mt-2 mx-auto rounded-circle ${greenLightOn ? "ligthOn" : "none"}`}></div>
+				<div onClick={lightBlueHandleClick} className={`col-12 light-blue bg-info mt-3 mb-3 mx-auto rounded-circle ${lightBlueLightOn ? "ligthOn" : "none"} ${newColor}`}></div>
+				<button onClick={buttonHandleClick} className="col-8 bg-secondary rounded-4 text-light mt-2 p-3 mx-auto">Extra color</button>
+			</div>
 		</div>
 	);
 };
